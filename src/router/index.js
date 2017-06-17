@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import LoadingBar from '../components/loading-bar'
+Vue.use(LoadingBar)
 
 // 主页
 import Home from '@/views/home/Home'
@@ -281,7 +283,11 @@ const route = new Router({
 })
 
 route.beforeEach((to, from, next) => {
+  LoadingBar.start()
   next()
+})
+route.afterEach(route => {
+  LoadingBar.finish()
 })
 
 export default route
