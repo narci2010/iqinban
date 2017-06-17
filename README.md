@@ -41,8 +41,8 @@ npm test
 ```
 
 ### acknowledgments
-ElemeFE
-Evan You
-Bilibili
+1.ElemeFE
+2.Evan You
+3.Bilibili
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
