@@ -81,19 +81,6 @@ var webpackConfig = merge(baseWebpackConfig, {
         )
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name:'charts',
-      chunks:['commons'],
-      minChunks:function(module){
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0 && ['echarts'].indexOf( module.resource.substr(module.resource.lastIndexOf('/')+1).toLowerCase() ) !== -1
-        )
-      }
-    }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({

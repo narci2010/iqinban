@@ -2,7 +2,7 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-var webpack = require('webpack')
+// var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -65,16 +65,22 @@ module.exports = {
         }
       },
       {
-        test: /\.mp3$/,
+        test: /\.(mp3|mov|mp4)(\?.*)?$/,
         loader: 'file-loader'
       }
     ]
   },
-  // 添加DllReferencePlugin插件
   plugins: [
-    new webpack.DllReferencePlugin({
+    // 添加DllReferencePlugin插件
+    /*new webpack.DllReferencePlugin({
       context: path.resolve(__dirname, '..'),
       manifest: require('./common-manifest.json')
-    })
+    }),
+    new PrerenderSpaPlugin(
+      // Absolute path to compiled SPA
+      path.join(__dirname, '../dist'),
+      // List of routes to prerender
+      [ '/' ]
+    )*/
   ]
 }
