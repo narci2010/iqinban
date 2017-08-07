@@ -1,0 +1,36 @@
+{
+path: '/classroom',
+component: Classroom,
+name: 'Classroom'
+},
+{
+path: '/classroom/detail',
+component: ClassroomDetail,
+children: [
+{
+path: '',
+name: 'ClassroomDetailPlan',
+component: ClassroomDetailPlan
+},
+{
+path: 'info',
+name: 'ClassroomDetailInfo',
+component: ClassroomDetailInfo
+},
+{
+path: 'record',
+name: 'ClassroomDetailRecord',
+component: ClassroomDetailRecord
+},
+{
+path: 'doc',
+name: 'ClassroomDetailDoc',
+component: ClassroomDetailDoc
+}
+]
+},
+{
+path: '/classroom/add',
+name: 'ClassroomAdd',
+component: ClassroomAdd
+}

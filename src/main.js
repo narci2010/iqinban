@@ -6,16 +6,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import * as filters from './filter/filters'
 import 'element-ui/lib/theme-default/index.css'
 import {
   Menu,
   MenuItem,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Badge,
-  Tabs,
-  TabPane,
   Form,
   FormItem,
   Input,
@@ -33,23 +29,16 @@ import {
   Table,
   TableColumn,
   DatePicker,
-  Dialog,
   Radio,
   Rate,
-  Tooltip,
   Tag,
-  Progress
+  Tooltip
 } from 'element-ui'
 
-Vue.use(Progress)
+Vue.use(Tooltip)
 Vue.use(Menu)
 Vue.use(MenuItem)
-Vue.use(Dropdown)
-Vue.use(DropdownItem)
-Vue.use(DropdownMenu)
 Vue.use(Badge)
-Vue.use(Tabs)
-Vue.use(TabPane)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
@@ -67,19 +56,21 @@ Vue.use(CheckboxGroup)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(DatePicker)
-Vue.use(Dialog)
 Vue.use(Radio)
 Vue.use(Rate)
-Vue.use(Tooltip)
 Vue.use(Tag)
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  store,
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

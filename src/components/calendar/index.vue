@@ -1,41 +1,31 @@
+<!-- 添加注释 -->
 <template>
-  <div class="i-calendar" :class="small ? 'i-small-calendar' : ''">
-    <div class="i-calendar-header">
-      <a class="i-calendar-link i-calendar-left" @click="prev">
-        <i class="el-icon-caret-left"></i>
-        <span>上一周</span>
-      </a>
-      <h2 class="i-calendar-title">{{ today }}</h2>
-      <a class="i-calendar-link i-calendar-right" @click="next">
-        <i class="el-icon-caret-right"></i>
-        <span>下一周</span>
-      </a>
+  <div class="i-calendar">
+    <div class="i-calendar__header">
+      <a href="javascript:" class="i-calendar__prev" @click="prev">上一周</a>
+      <div class="i-calendar__title">
+        <input type="text" v-model="year" name="year" id="year" @input="changeYear"><label for="year">年</label>
+        <input type="text" v-model="month" name="month" id="month" @input="changeMonth"><label for="month">月</label>
+      </div>
+      <a href="javascript:" class="i-calendar__next" @click="next">下一周</a>
     </div>
-    <div class="i-calendar-pane">
-      <div class="i-c-b-header">
-        <div class="i-row">
-          <div class="i-col-3" v-for="(week, key) in weeks" :key="key">
-            <div class="i-c-b-h-item" :class="key === index ? 'active' : ''">
-              <div class="i-c-b-h-item-inner">{{ week }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="i-calendar-side">
-        <div class="i-c-side-item" v-for="i in list.length">{{ i }}</div>
-      </div>
-      <div class="i-calendar-body">
-        <div class="i-c-b-items">
-          <div class="i-row" v-for="course in list" :key="course.id">
-            <div class="i-col-3" v-for="item in course.course" :key="item.id">
-              <div class="i-c-b-item active" v-if="item.active" @click="onItemClick(item)">
-                <div class="i-c-b-item-inner" v-html="item.text"></div>
-              </div>
-              <div class="i-c-b-item" v-else>
-                <div class="i-c-b-item-inner" v-html="item.text"></div>
-              </div>
-            </div>
-          </div>
+    <div class="i-calendar__week">
+      <span v-for="(item, index) in weeks" :key="index" :class="{'is-active': index === day}">{{ item }}</span>
+    </div>
+    <div class="i-calendar__section">
+      <span v-for="i in 7" :key="i" :class="{'is-active': i - 1 === day}"></span>
+    </div>
+    <div class="i-calendar__side">
+      <span v-for="i in items.length">{{ i }}</span>
+    </div>
+    <div class="i-calendar__body">
+      <div class="i-calendar__row" v-for="i in 7" :key="i">
+        <div class="i-calendar__cell" :class="{'is-active': Math.floor(Math.random() * 3) === 1}" @click="cellClick(item)" v-for="(item, index) in items" :key="index">
+          <span>课程名一</span>
+          <span>课程二</span>
+          <span>课程名三</span>
+          <span>课程名四和六</span>
+          <p>共10节</p>
         </div>
       </div>
     </div>
@@ -43,238 +33,209 @@
 </template>
 
 <script>
+  import c from './calendar'
+  import _ from 'lodash'
+
   export default {
-    name: 'calendar',
-    componentName: 'calendar',
+    name: 'Calendar',
     props: {
-      list: {
-        type: Array,
-        default: []
-      },
-      weeks: {
-        type: Array,
-        default: []
-      },
-      index: {
-        type: Number,
-        default: 0
-      },
-      today: {
-        type: String,
-        default: '1970年1月'
-      },
-      small: {
-        type: Boolean,
-        default: false
-      }
+      items: Array
     },
     methods: {
+      changeYear: _.debounce(function () {
+        c.setYear(this.year)
+        this.change()
+      }, 1000),
+      changeMonth: _.debounce(function (val) {
+        c.setMonth(this.month)
+        this.change()
+      }, 1000),
       prev () {
-        this.$emit('on-prev-week')
+        c.transWeek(-1)
+        this.change()
       },
       next () {
-        this.$emit('on-next-week')
+        c.transWeek(1)
+        this.change()
       },
-      onItemClick (item) {
-        this.$emit('on-item-click', item)
+      change () {
+        this.year = c.getYear()
+        this.month = c.getMonth()
+        this.$emit('on-change', c.getYear(), c.getMonth())
+      },
+      cellClick (item) {
+        this.$emit('cell-click', item)
+      }
+    },
+    data () {
+      return {
+        year: c.getYear(),
+        month: c.getMonth(),
+        weeks: c.weeks,
+        today: c.formatDate(),
+        day: c.getDay()
       }
     }
   }
 </script>
 
-<style lang="less">
-  @import "../../assets/v2/base";
+<style lang="scss" scoped>
+  @import "../../assets/scss/base";
 
   .i-calendar {
-    position: relative;
+    background: $calendar-background;
+    border-radius: $calendar-border-radius;
     overflow: hidden;
-    background: #fff;
-    &:after {
-      content: '';
-      display: table;
-      clear: both;
+    &__header {
+      @extend .clearfix;
+      padding: $calendar-header-padding 0;
+      text-align: center;
     }
-    .i-calendar-header {
-      height: 75px;
+    &__prev {
+      float: left;
       position: relative;
-      .i-calendar-title {
-        text-align: center;
-        padding: 0;
-        margin: 0;
-        line-height: 75px;
-      }
-      .i-calendar-link {
+      margin-left: $calendar-header-margin;
+      color: $calendar-header-color;
+      font-size: $calendar-header-fontsize;
+      &:before {
         position: absolute;
-        top: 0;
-        line-height: 75px;
-        cursor: pointer;
-      }
-      .i-calendar-left {
-        left: 40px;
-        i {
-          float: left;
-          line-height: 75px;
-          margin-right: 5px;
-          font-size: 12px;
-          color: #0086FA;
-        }
-      }
-      .i-calendar-right {
-        right: 45px;
-        i {
-          float: right;
-          line-height: 75px;
-          margin-left: 5px;
-          font-size: 12px;
-          color: #0086FA;
-        }
+        content: '';
+        border-color: transparent;
+        border-style: solid;
+        border-width: 6px;
+        border-left-width: 0;
+        border-right-color: $calendar-arrow-color;
+        left: -15px;
+        top: 7px;
       }
     }
-    &.i-small-calendar {
-      .i-calendar-header {
-        height: 60px;
-        .i-calendar-title {
-          line-height: 60px;
-        }
-        .i-calendar-link {
-          line-height: 60px;
-        }
-        .i-calendar-left {
-          i {
-            line-height: 60px;
-          }
-        }
-        .i-calendar-right {
-          i {
-            line-height: 60px;
-          }
-        }
-      }
-      .i-calendar-pane {
-        .i-calendar-side {
-          width: 70px;
-          .i-c-side-item {
-            height: 77px;
-            line-height: 72px;
-          }
-        }
-        .i-c-b-header {
-          padding-left: 70px;
-          font-size: 13px;
-        }
-        .i-calendar-body {
-          left: 70px;
-          .i-c-b-item {
-            height: 76px;
-            .i-c-b-item-inner {
-              height: 72px;
-              margin: 0 3px 3px 0;
-              > span {
-                line-height: 14px;
-                padding-left: 9px;
-                font-size: 10px;
-              }
-              > p {
-                height: 17px;
-                line-height: 17px;
-                font-size: 10px;
-              }
-            }
-          }
-        }
-      }
-    }
-    .i-calendar-pane {
+    &__next {
       position: relative;
-      &:after, &:before {
-        content: ' ';
-        display: table;
-        clear: both;
+      float: right;
+      margin-right: $calendar-header-margin;
+      color: $calendar-header-color;
+      font-size: $calendar-header-fontsize;
+      &:after {
+        position: absolute;
+        content: '';
+        border-color: transparent;
+        border-style: solid;
+        border-width: 6px;
+        border-right-width: 0;
+        border-left-color: $calendar-arrow-color;
+        right: -15px;
+        top: 7px;
       }
-      .i-calendar-side {
+    }
+    &__title {
+      font-size: $calendar-header-fontsize;
+      color: $calendar-header-color;
+      display: inline-block;
+      input {
+        width: 46px;
+        padding: 0 5px;
+        font-size: $calendar-header-fontsize;
+        border: 1px solid transparent;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-appearance: none;
+        text-align: right;
+        color: $calendar-header-color;
+        transition: all .3s linear;
+        &:focus {
+          border-radius: 2px;
+          border: solid 1px #94a5bd;
+          color: #9e9ebc;
+          text-align: center;
+        }
+        &[name="month"] {
+          width: 27px;
+        }
+      }
+    }
+    &__week {
+      margin-left: $calendar-side-width;
+      @extend .clearfix;
+      > span {
+        width: 1 / 7 * 100%;
+        text-align: center;
         float: left;
         position: relative;
-        width: 107px;
-        background: #EBEBF2;
-        .i-c-side-item {
-          height: 110px;
-          line-height: 105px;
-          text-align: center;
-          font-size: 18px;
+        font-size: $calendar-week-fontsize;
+        color: $calendar-week-color;
+        margin: 5px 0;
+        &.is-active {
+          color: $calendar-week-active-color;
         }
       }
-      .i-c-b-header {
-        height: 30px;
-        padding-left: 107px;
+    }
+    &__section {
+      background: $calendar-section-background;
+      height: $calendar-section-height;
+      padding-left: $calendar-side-width;
+      > span {
+        width: 1 / 7 * 100%;
+        float: left;
+        height: $calendar-section-height;
+        &.is-active {
+          background: $calendar-section-active-background;
+        }
+      }
+    }
+    &__side {
+      width: $calendar-side-width;
+      float: left;
+      position: relative;
+      border-radius: $calendar-border-radius;
+      > span {
+        display: block;
+        height: $calendar-cell-height + $calendar-cell-padding;
+        line-height: $calendar-cell-height + $calendar-cell-padding;
+        background: $calendar-side-background;
+        font-size: $calendar-side-fontsize;
         text-align: center;
-        line-height: 30px;
-        border-bottom: 4px solid #D8D8E6;
-        .i-c-b-h-item {
-          .i-c-b-h-item-inner {
-            margin: 0 2px 0 4px;
-          }
-          height: 30px;
-          float: left;
-          width: 14.285714%;
-          &.active {
-            .i-c-b-h-item-inner {
-              border-bottom: 4px solid #167ad7;
-            }
-          }
+        &:last-child {
+          height: $calendar-cell-height + $calendar-cell-padding * 2;
         }
       }
-      .i-calendar-body {
-        position: absolute;
-        left: 107px;
-        right: 0;
-        .i-c-b-items {
-          margin: 5px 0 0 5px;
-          clear: both;
-          &:before, &:after {
-            clear: both;
-            display: table;
-            content: '';
-          }
-        }
-        .i-c-b-item {
-          width: 14.285714%;
-          height: 109px;
-          float: left;
-          .box-sizing;
-          position: relative;
-          .i-c-b-item-inner {
-            margin: 0 5px 5px 0;
-            border-radius: 2px;
-            height: 103px;
-            overflow: hidden;
-            position: relative;
-            > span {
-              display: block;
-              line-height: 20px;
-              padding-left: 9px;
-              color: #647489;
-            }
-            > p {
-              background: #DBDBE8;
-              height: 23px;
-              line-height: 23px;
-              margin: 0;
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              padding-left: 9px;
-              color: #5C6679;
-            }
-          }
-          &.active {
-            .i-c-b-item-inner {
-              font-size: 12px;
-              cursor: pointer;
-              border: 1px solid #D7D7E4;
-            }
-          }
-        }
+    }
+    &__body {
+      margin-left: $calendar-side-width;
+      padding: $calendar-cell-padding 0 0 $calendar-cell-padding;
+    }
+    &__row {
+      float: left;
+      width: 1 / 7 * 100%;
+      position: relative;
+    }
+    &__cell {
+      height: $calendar-cell-height;
+      border-radius: $calendar-cell-border-radius;
+      box-sizing: border-box;
+      margin: 0 $calendar-cell-padding $calendar-cell-padding 0;
+      overflow: hidden;
+      cursor: default;
+      visibility: hidden;
+      &.is-active {
+        cursor: pointer;
+        border: 1px solid $calendar-cell-border-color;
+        visibility: visible;
+      }
+      span {
+        font-size: $calendar-cell-fontsize;
+        display: block;
+        padding-left: $calendar-content-padding;
+        color: $calendar-cell-color;
+        line-height: ($calendar-cell-height - $calendar-cell-bot-height) / 4;
+      }
+      p {
+        height: $calendar-cell-bot-height;
+        line-height: $calendar-cell-bot-height;
+        color: $calendar-cell-bot-color;
+        margin: 0;
+        background: $calendar-cell-background;
+        font-size: $calendar-cell-fontsize;
+        padding-left: $calendar-content-padding;
       }
     }
   }

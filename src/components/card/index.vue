@@ -1,92 +1,56 @@
+<!-- card -->
 <template>
   <div class="i-card">
-    <div class="i-card-inner" :style="style">
-      <div class="i-card-left">
-        <div class="i-card-inner">
-          <i class="iconfont icon-picture" v-show="show"></i>
-          <img :src="src" v-show="!show">
-        </div>
-        <slot name="left"></slot>
+    <div class="i-card__header">
+      <div class="i-card__title">{{ title }}
+        <slot name="sup"></slot>
       </div>
-      <div class="i-card-right">
-        <slot name="content"></slot>
-      </div>
-      <div class="i-card-opr">
+      <div class="i-card__slot">
         <slot name="button"></slot>
       </div>
+    </div>
+    <div class="i-card__body">
+      <slot name="body"></slot>
     </div>
   </div>
 </template>
 
 <script>
   export default {
+    name: 'Card',
     props: {
-      src: {
-        type: String,
-        default: ''
-      },
-      padding: {
-        type: String,
-        default: '33px 30px'
-      }
-    },
-    computed: {
-      show () {
-        return this.src === '' || this.src == null
-      },
-      style () {
-        return {
-          padding: this.padding
-        }
-      }
+      title: String
     }
   }
 </script>
 
-<style lang="less">
-  @import "../../assets/v2/base";
-  @import "../../assets/v2/icon";
-
+<style lang="scss" scoped>
   .i-card {
-    background: #fff;
-    margin-top: 20px;
-    position: absolute;
-    width: 100%;
-    border-radius: 2px;
-    .i-card-inner {
-      .clear;
-      .clearfix;
-      position: relative;
+    margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
     }
-    .i-card-opr {
-      position: absolute;
-      right: 15px;
-      top: 0;
+    &__header {
+      height: 32px;
+      clear: both;
     }
-    .i-card-left {
+    &__title {
       float: left;
       position: relative;
-      text-align: center;
-      width: 560px;
-      .i-card-inner {
-        background: #EFEFF4;
-        height: 330px;
-        line-height: 330px;
-        padding: 0;
-      }
-      i {
-        color: #CECEDD;
-        font-size: 60px;
-        display: block;
-      }
-      img {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
+      font-size: 14px;
+      color: #0d2039;
+      line-height: 14px;
     }
-    .i-card-right {
-      margin-left: 560px;
+    &__slot {
+      float: right;
+      position: relative;
+    }
+    &__body {
+      &:before, &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
     }
   }
 </style>

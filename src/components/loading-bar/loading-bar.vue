@@ -67,7 +67,7 @@
     }
   }
 </script>
-<style lang="less">
+<style lang="scss">
   .ivu-loading-bar {
     width: 100%;
     position: fixed;

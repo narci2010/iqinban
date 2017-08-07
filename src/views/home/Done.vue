@@ -1,164 +1,225 @@
 <!-- 代办事项 -->
 <template>
-  <div class="i-done">
-    <el-row>
-      <el-col :span="8" v-for="(item, index) in events" :key="index">
-        <div class="i-done-header">
-          <div class="i-done-header-left">
-            {{ item.name }}<span>{{ item.number }}</span>
-          </div>
+  <div class="i-content i-done">
+    <el-row :gutter="40">
+      <el-col :span="8">
+        <div class="i-done__header">
+          <p>教师<span>8</span></p>
           <el-popover
             placement="bottom"
-            popper-class="i-popover"
-            width="80"
-            :offset="-30"
-            trigger="click">
-            <div class="i-t-d-popover">
-              <a href="javascript:void(0)">全部忽略</a>
-              <a href="javascript:void(0)">全部提醒</a>
+            title=""
+            width="85"
+            :offset="-20"
+            trigger="click"
+            popper-class="i-popover__small">
+            <div class="i-popover__content">
+              <a class="i-popover__item" href="javascript:">全部提醒</a>
+              <a class="i-popover__item" href="javascript:">全部忽略</a>
             </div>
-            <div class="i-done-header-right el-icon-more" slot="reference"></div>
+            <a href="javascript:" slot="reference"><i class="iconfont icon-morecopy_px"></i> </a>
+          </el-popover>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="i-done__header">
+          <p>学生<span>6</span></p>
+          <el-popover
+            placement="bottom"
+            title=""
+            width="85"
+            :offset="-20"
+            trigger="click"
+            popper-class="i-popover__small">
+            <div class="i-popover__content">
+              <a class="i-popover__item" href="javascript:">全部提醒</a>
+              <a class="i-popover__item" href="javascript:">全部忽略</a>
+            </div>
+            <a href="javascript:" slot="reference"><i class="iconfont icon-morecopy_px"></i> </a>
+          </el-popover>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="i-done__header">
+          <p>机构<span>29</span></p>
+          <el-popover
+            placement="bottom"
+            title=""
+            width="85"
+            :offset="-20"
+            trigger="click"
+            popper-class="i-popover__small">
+            <div class="i-popover__content">
+              <a class="i-popover__item" href="javascript:">全部忽略</a>
+            </div>
+            <a href="javascript:" slot="reference"><i class="iconfont icon-morecopy_px"></i> </a>
           </el-popover>
         </div>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :span="8" v-for="(event, index) in events" :key="index">
-        <div class="i-tabs-list" :class="event.id === 3 ? 'i-tabs-noborder' : ''">
-          <div class="i-tabs-item" v-for="item in event.list" :class="event.id === 1 ? 'i-tabs-padding' : ''">
-            <h4>{{ item.title }}</h4>
-            <span>{{ item.content }}</span>
-            <span>{{ item.sub }}</span>
-            <div class="i-tabs-item-grid">
-              <img alt="user" src="../../assets/img/3e44582895189ec04d7ab61670341baf.jpg">
-              <img alt="user" src="../../assets/img/3e44582895189ec04d7ab61670341baf.jpg">
-            </div>
-            <div class="i-tabs-item-bar">
-              <div class="i-tabs-item-bar-left">
-                {{ item.time }}
-              </div>
-              <div class="i-tabs-item-bar-right">
-                <a href="javascript:void(0)">提醒</a>
-                <a href="javascript:void(0)">忽略</a>
-                <a href="javascript:void(0)">处理</a>
-              </div>
-            </div>
+    <el-row :gutter="40">
+      <el-col :span="8" class="i-done__col">
+        <div class="i-done__item" v-for="i in 8" :class="{'is-active': i === 1}" :key="i">
+          <p>任务超期</p>
+          <span>张三未对英皇二级B班进行点名<br>原定课程时间：2017.2.9，14：00-15：00</span>
+          <img :src="src"><img :src="src">
+          <div class="i-done__toolbar">
+            <span>2017.2.9</span>
+            <a href="javascript:">提醒</a>
+            <a href="javascript:">忽略</a>
+            <a href="javascript:">处理</a>
+          </div>
+          <div class="i-done__tip" v-if="i === 1">
+            已提醒
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="8" class="i-done__col">
+        <div class="i-done__item" v-for="i in 8" :key="i">
+          <p>任务超期</p>
+          <span>张三未对英皇二级B班进行点名<br>原定课程时间：2017.2.9，14：00-15：00</span>
+          <img :src="src"><img :src="src">
+          <div class="i-done__toolbar">
+            <span>2017.2.9</span>
+            <a href="javascript:">提醒</a>
+            <a href="javascript:">忽略</a>
+            <a href="javascript:">处理</a>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="8" class="i-done__col">
+        <div class="i-done__item" v-for="i in 8" :key="i">
+          <p>任务超期</p>
+          <span>张三未对英皇二级B班进行点名<br>原定课程时间：2017.2.9，14：00-15：00</span>
+          <div class="i-done__toolbar">
+            <span>2017.2.9</span>
+            <a href="javascript:">提醒</a>
+            <a href="javascript:">忽略</a>
+            <a href="javascript:">处理</a>
           </div>
         </div>
       </el-col>
     </el-row>
   </div>
 </template>
+
 <script>
-  import done from '../../mock/home/done'
+  import src from '../../assets/img/ico.jpg'
 
   export default {
-    methods: {
-      createEventData () {
-        this.events = done.createEventData()
-      }
-    },
-    mounted () {
-      this.createEventData()
-    },
+    name: 'HomeDone',
     data () {
       return {
-        events: []
+        src: src
       }
     }
   }
 </script>
-<style lang="less">
-  @import "../../assets/v2/base";
+
+<style lang="scss" scoped>
+  @import "../../assets/scss/base";
 
   .i-done {
-    width: 100%;
-    background: #fff;
-    padding-top: 20px;
-    .i-done-header {
-      height: 43px;
-      margin: 0 20px;
-      background: #EFEFF4;
-      border-radius: 4px;
-      clear: both;
-      .i-done-header-left {
-        float: left;
-        line-height: 43px;
-        padding-left: 10px;
-        span {
-          margin-left: 25px;
-          display: inline-block;
-          color: #4992FA;
+    &__header {
+      background: $home-done-col-background;
+      height: $home-done-col-header-height;
+      line-height: $home-done-col-header-height;
+      border-radius: $home-done-col-border-radius;
+      position: relative;
+      p {
+        margin-left: $home-done-padding;
+        font-size: $home-done-col-header-fontsize;
+        color: $home-done-col-header-color;
+        > span {
+          color: $home-done-col-header-color2;
+          margin-left: $home-done-col-header-gap;
         }
       }
-      .i-done-header-right {
-        float: right;
-        margin-top: 2px;
-        padding: 10px;
-        cursor: pointer;
-        transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
+      a {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0 15px;
+        color: $home-done-col-header-color;
       }
     }
-    .i-tabs-list {
-      border-right: 1px solid #CDCDDE;
-      .box-sizing;
-      &.i-tabs-noborder {
+    &__col {
+      margin-top: $home-done-margin;
+      border-right: 1px solid $home-done-border-color;
+      &:last-child {
         border: none;
       }
-      .i-tabs-item {
-        position: relative;
-        margin: 20px;
-        border-radius: 5px;
-        padding: 10px;
-        transition: all .5s;
-        h4 {
-          padding: 0;
-          margin: 0;
-          line-height: 32px;
-        }
-        span {
-          display: block;
-          color: #58667B;
-          line-height: 24px;
-        }
-        .i-tabs-item-grid {
-          margin: 10px 0;
-          img {
-            width: 32px;
-            height: 32px;
-            border-radius: 100%;
-          }
-        }
-        &.i-tabs-padding {
-          margin: 20px;
-        }
-        &:hover {
-          background: #EFEFF4;
-          .box-shadow;
-        }
-        .i-tabs-item-bar {
-          width: 100%;
-          &:after {
-            content: '';
-            display: table;
-            clear: both;
-          }
-          .i-tabs-item-bar-left {
-            float: left;
-          }
-          .i-tabs-item-bar-right {
-            float: right;
-            a {
-              color: #A8A8C2;
-              font-size: 14px;
-              &:hover, &:active {
-                color: #62A1F9;
-              }
-            }
-          }
+    }
+    &__item {
+      margin-top: $home-done-margin;
+      height: $home-done-item-height;
+      border-radius: $home-done-col-border-radius;
+      padding: $home-done-padding;
+      line-height: 24px;
+      position: relative;
+      transition: all .3s linear;
+      &:first-child {
+        margin-top: 0;
+      }
+      &.is-active, &:hover {
+        background: $home-done-col-background;
+        a {
+          display: inline-block;
         }
       }
+      p {
+        font-size: $home-done-item-title-fontsize;
+        font-weight: $home-done-item-title-fontweight;
+        color: $home-done-col-header-color;
+      }
+      > span {
+        color: $home-done-item-content-color;
+        font-size: $home-done-item-content-fontsize;
+        margin-top: 5px;
+        display: block;
+      }
+      > img {
+        display: inline-block;
+        width: $home-done-item-ico-size;
+        height: $home-done-item-ico-size;
+        border-radius: 100%;
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+    }
+    &__toolbar {
+      position: absolute;
+      bottom: $home-done-padding;
+      left: $home-done-padding;
+      right: $home-done-padding;
+      text-align: right;
+      > span {
+        color: $home-done-item-footer-time-color;
+        font-size: $home-done-item-footer-time-fontsize;
+        font-family: $home-done-item-footer-time-fontfamily;
+        float: left;
+      }
+      > a {
+        font-size: $home-done-item-tool-fontsize;
+        color: $home-done-item-tool-color;
+        transition: all .15s linear;
+        margin-left: 15px;
+        display: none;
+        &:hover {
+          color: $home-done-item-tool-active-color;
+        }
+      }
+    }
+    &__tip {
+      @extend .middle-center;
+      width: $home-done-tip-width;
+      height: $home-done-tip-height;
+      background: $home-done-tip-background;
+      border-radius: $home-done-tip-border-radius;
+      box-shadow: $home-done-tip-box-shadow;
+      color: $home-done-tip-color;
+      text-align: center;
+      line-height: $home-done-tip-height;
+      font-size: $home-done-tip-fontsize;
     }
   }
 </style>

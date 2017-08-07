@@ -1,199 +1,56 @@
+<!-- 后台功能 -->
 <template>
-  <div class="i-admin">
-    <el-form class="i-form" :label-position="labelPosition" label-width="80px" style="width: 550px;" :model="information">
-      <el-form-item label="代办事项">
-        <div class="i-section i-section-header">
-          <div class="i-section-left">学生</div>
-          <div class="i-section-middle">异常状态提醒</div>
-          <div class="i-section-right">异常状态提醒</div>
+  <div class="i-content">
+    <div class="form__pane">
+      <el-form class="i-form" label-position="top" label-width="">
+        <el-form-item label="代办事项">
+          <div class="i-form__item">
+            <span class="i-form__label" style="width: 180px;">学生</span>
+            <span class="i-form__label" style="width: 280px;">期限设定</span>
+            <span class="i-form__label" style="width: auto;margin-left: 150px">异常状态提醒</span>
+          </div>
+          <div class="i-form__item" v-for="item in done" :key="item">
+            <span class="i-form__label" style="width: 180px;">{{ item }}</span>
+            <span class="i-form__label" style="width: 280px;">
+              <el-time-select style="width:280px;" :picker-options="datePickerOptions" placeholder=""></el-time-select>
+            </span>
+            <span class="i-form__label" style="width: auto;margin-left: 150px">
+              <el-switch class="i-switch floatright" :width="58" v-model="value" on-text="" off-text=""></el-switch>
+            </span>
+          </div>
+        </el-form-item>
+        <el-form-item label="教师">
+          <div class="i-form__item" v-for="item in teacher" :key="item">
+            <span class="i-form__label" style="width: 180px;">{{ item }}</span>
+            <span class="i-form__label" style="width: 280px;">
+              <el-time-select style="width:280px;" :picker-options="datePickerOptions" placeholder=""></el-time-select>
+            </span>
+            <span class="i-form__label" style="width: auto;margin-left: 150px">
+              <el-switch class="i-switch floatright" :width="58" v-model="value" on-text="" off-text=""></el-switch>
+            </span>
+          </div>
+        </el-form-item>
+        <div class="i-form__btns" style="margin-top: 50px">
+          <el-button class="i-button__done" style="width: 250px;height: 38px;">保存</el-button>
+          <el-button class="i-button__cancel" style="width: 250px;height: 38px;">取消</el-button>
         </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时学习课件</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时完成作业</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时完成考试</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section i-section-header">
-          <div class="i-section-left">教师</div>
-          <div class="i-section-middle"></div>
-          <div class="i-section-right"></div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时完成考试</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时布置学习内容</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时批改作业</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-        <div class="i-section">
-          <div class="i-section-left">未按时布置考试</div>
-          <div class="i-section-middle">
-            <el-select v-model="information.name" placeholder="" style="width: 278px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="i-section-right">
-            <el-switch class="i-switch" v-model="information.value1" :width="58" on-text="" off-text="" on-color="#4993FA" off-color="#CDCDDE"></el-switch>
-          </div>
-        </div>
-      </el-form-item>
-      <el-form-item>
-        <el-row :gutter="50">
-          <el-col :span="12">
-            <el-button type="primary" class="i-button i-confirm" style="width: 250px;">确认</el-button>
-          </el-col>
-          <el-col :span="12">
-            <el-button type="primary" class="i-button i-cancel" style="width: 250px;">取消</el-button>
-          </el-col>
-        </el-row>
-      </el-form-item>
-    </el-form>
+      </el-form>
+    </div>
   </div>
 </template>
+
 <script>
   export default {
+    name: 'Admin',
     data () {
       return {
-        labelPosition: 'top',
-        information: {
-          name: '',
-          value1: false
-        },
-        options: [
-          {
-            value: 1,
-            label: '超时1小时'
-          }, {
-            value: 2,
-            label: '超时2小时'
-          }, {
-            value: 3,
-            label: '超时3小时'
-          }
-        ]
+        value: false,
+        done: ['未按时学习课件', '为按时完成作业', '未按时完成考试'],
+        teacher: ['未按时完成考试', '未按时布置学习内容', '未按时批改作业', '未按时不知考试']
       }
     }
   }
 </script>
-<style lang="less">
-  @import "../../assets/v2/base";
 
-  .i-section {
-    clear: both;
-    width: 100%;
-    margin-bottom: 15px;
-    &:before, &:after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-    .i-section-left, .i-section-middle {
-      float: left;
-    }
-    .i-section-left {
-      width: 142px;
-      padding-left: 10px;
-      color: #848D9D;
-    }
-    &.i-section-header {
-      margin-top: 20px;
-      .i-section-left {
-        color: #000;
-      }
-    }
-    .i-section-middle {
-      width: 278px;
-    }
-    .i-section-right {
-      float: right;
-    }
-  }
+<style lang="scss">
 </style>

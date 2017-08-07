@@ -1,0 +1,343 @@
+// header
+$header-height: 77px;
+$header-background: #4993fa;
+$header-color: #ffffff;
+$header-margin: 20px; // 横向<1280px分辨率
+$header-position: fixed;
+$header-width: 1280px;
+$header-menu-fontsize: 18px;
+$header-mixin-fontsize: 16px;
+$header-logo-margin: 0 30px 0 0;
+$header-ico-size: 38px;
+$header-search-height: 30px;
+$header-search-width: 240px;
+$header-search-padding: 10px;
+$header-search-border-color: #fff;
+$header-search-fontsize: 12px;
+$header-search-pane-background: #fff;
+$header-search-pane-width: 419px;
+$header-search-pane-height: 236px;
+$header-search-pane-fontsize: 14px;
+$header-search-pane-left-color: #9e9ebc;
+$header-search-pane-left-hover-color: #fff;
+$header-search-pane-left-hover-background: #cdcdde;
+$header-search-pane-right-color: rgba(54, 72, 97, 0.9);
+$header-search-pane-right-hover-color: #4993fa;
+$header-search-pane-right-border-color: #cdcdde;
+$header-transition-duration: .15s;
+$header-transition-function: linear;
+$header-zindex: 100;
+$header-msg-height: 403px;
+$header-msg-fontsize: 14px;
+$header-msg-color: #4a4a4a;
+$header-msg-color2: #cdcddf;
+$header-msg-fontsize2: 12px;
+$header-msg-indicator-size: 5px;
+$header-msg-indicator-background: #4993fa;
+$header-msg-margin: 20px;
+$header-msg-padding: 10px 5px 5px 15px;
+$header-msg-border-color: #d4d1d4;
+// body
+$body-min-width: 1024px;
+$main-width: 1057px;
+$main-margin: 20px;
+$main-border-radius: 4px;
+$content-padding: 20px; // i-content
+$main-bottom-padding: 35px;
+$content-right-width: 315px;
+$content-right-margin-left: 20px;
+$content-border-radius: 2px;
+$content-background: #fff;
+$content-left-padding: 30px 0 84px 40px;
+$content-right-padding: 30px;
+// popover
+$popover-color: rgba(54, 72, 97, 0.9);
+$popover-hover-color: #4993fa;
+$popover-fontsize: 14px;
+$popover-small-fontsize: 12px;
+$popover-padding: 16px;
+$popover-transition-duration: .3s;
+$popover-transition-function: linear;
+$popover-title-color: #9e9ebc;
+$popover-title-fontsize: 12px;
+// tabbar
+$tabbar-background: #fff;
+$tabbar-height: 50px;
+$tabbar-box-shadow: 0 0.1px 1px 1px rgba(13, 32, 57, 0.2);
+$tabbar-color: #9e9ebc;
+$tabbar-hover-color: #4993fa;
+$tabbar-fontsize: 14px;
+$tabbar-transition-duration: .15s;
+$tabbar-transition-timing: linear;
+$tabbar-margin: 0 20px;
+$tabbar-position: fixed;
+$tabbar-zindex: 99;
+// calendar
+$calendar-background: #fff;
+$calendar-border-radius: 2px;
+$calendar-header-fontsize: 20px;
+$calendar-header-margin: 65px;
+$calendar-header-color: #0d2039;
+$calendar-header-fontweight: 600;
+$calendar-header-padding: 22px;
+$calendar-arrow-color: #4993fa;
+$calendar-week-fontsize:18px;
+$calendar-week-color: #0d2039;
+$calendar-week-active-color: #4993fa;
+$calendar-section-height: 4px;
+$calendar-section-background: rgba(205, 205, 222, 0.7);
+$calendar-section-active-background: #4993fa;
+$calendar-cell-fontsize: 12px; // 主体部分字体大小
+$calendar-cell-height: 105px; // 主体部分大小
+$calendar-cell-background: rgba(205, 205, 222, 0.7);
+$calendar-cell-color: rgba(54, 72, 97, 0.9);
+$calendar-cell-bot-color: #0d2039;
+$calendar-cell-bot-height: 24px;
+$calendar-content-padding: 10px;
+$calendar-cell-border-color: #cdcdde;
+$calendar-cell-border-radius: 2px;
+$calendar-cell-padding: 5px;
+$calendar-side-background: rgba(205, 205, 222, 0.4);
+$calendar-side-color: #0d2039;
+$calendar-side-fontsize: 30px;
+$calendar-side-width: 107 / 1057 * 100%;
+$calendar-body-width: 950 / 1057 * 100%;
+// switch
+$switch-active-color: #4993fa;
+$switch-default-color: #cdcddf;
+$switch-border-radius: 2px;
+$switch-default-height: 20px;
+$switch-default-width: 66px;
+$switch-default-slide-width: 26px;
+$switch-small-height: 14px;
+$switch-small-width: 46px;
+$switch-small-slide-width: 18px;
+$switch-default-slide-height: 12px;
+$switch-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.05), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 1px 0 rgba(0, 0, 0, 0.05);
+// menubar
+$menubar-height: 65px;
+$menubar-position: fixed;
+$menubar-margin: 20px; // screen width <1280
+$menubar-zindex: 98;
+$menubar-background: #fff;
+$menubar-box-shadow: 0 0.1px 1px 1px rgba(13, 32, 57, 0.2);
+$menubar-title-color: #0d2039;
+$menubar-title-fontsize: 18px;
+$menubar-title-fontweight: 500;
+$menubar-sup-margin: 10px;
+$menubar-sup-color: #9e9ebc;
+$menubar-sup-fontsize: 14px;
+$menubar-control-color: #94a5bd;
+$menubar-control-color2: #fff;
+$menubar-control-background: #4993fa;
+$menubar-control-fontsize: 14px;
+// checkbox
+$checkbox-fontsize: 14px;
+$checkbox-color: rgba(54, 72, 97, 0.9);
+$checkbox-clear-color: #4393fa;
+$checkbox-label-width: 77px;
+$checkbox-items-margin: 18px;
+$checkbox-check-margin: 20px;
+$checkbox-check-first-margin: 9px;
+$checkbox-width: 847px;
+$checkbox-offset: 60px;
+.i-checkbox__clear {
+  clear: both;
+  font-size: $checkbox-fontsize;
+  width: $checkbox-width;
+  margin: 0 auto;
+  text-align: right;
+  > a {
+    color: $checkbox-clear-color;
+  }
+}
+// messagebox
+$messagebox-zindex: 1000;
+$messagebox-border-radius: 2px;
+$messagebox-background-color: #ffffff;
+$messagebox-box-shadow: -3px 0 6px 0 rgba(12, 31, 56, 0.5);
+// layer
+$layer-border-radius: 2px;
+$layer-zindex: 999;
+$layer-background-color: #f6f9fa;
+$layer-wrapper-background-color: rgba(8, 20, 36, 0.7);
+$layer-title-fontsize: 24px;
+$layer-title-color: #0d2039;
+$layer-body-padding: 24px;
+// step
+$step-margin: 20px;
+$step-font-size: 14px;
+$step-title-fontweight: 500;
+$step-title-color: #0d2039;
+$step-title-margin: 22px;
+$step-indicator-size: 15px;
+$step-indicator-height: 68px;
+$step-indicator-color: rgba(54, 72, 97, 0.9);
+$step-timeline-color: #94a6be;
+$step-timeline-margin: 35px;
+$step-item-height: 82px;
+$step-item-margin: 8px;
+$step-item-title-font-weight: 300;
+$step-item-title-color: rgba(54, 72, 97, 0.9);
+$step-content-color: #1e2836;
+$step-content-margin: 28px;
+$step-footer-color: #94a6be;
+// base scss
+.padding20 {
+  padding: 20px;
+}
+.floatleft {
+  float: left;
+}
+.floatright {
+  float: right;
+}
+.clearfix {
+  clear: both;
+  &:before, &:after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+}
+.clear {
+  clear: both;
+}
+.border-1px {
+  border: 1px solid red;
+}
+.box-sizing {
+  box-sizing: border-box;
+}
+.box-shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+}
+// can't extend， defined in class list should
+.box-shadow-side {
+  &:before, &:after {
+    content:"";
+    position:absolute;
+    display: block;
+    bottom: 13px;
+    z-index: -1;
+    left: 5px;
+    width: 0;
+    height:20%;
+    box-shadow:0 15px 10px rgba(0, 0, 0, 0.5);
+    transform:rotate(-4deg);
+    transition: width .3s linear;
+  }
+  &:hover:before, &:hover:after {
+    width: 50%;
+  }
+  &:after {
+    right: 5px;
+    left:auto;
+    transform:rotate(4deg);
+  }
+}
+.middle-center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 50%;
+  margin: 0 auto;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+}
+// img 路径
+
+
+// 数据统计
+$data-header-fontsize: 14px;
+$data-header-color: rgba(54, 72, 97, 0.9);
+$data-header-lineheight: 22px;
+$data-header-margin: 35px;
+$data-section-width-442: 442/ 1057 * 100%;
+$data-section-width-595: 595 / 1057 * 100%;
+$data-section-width-217: 217 / (217 + 560 + 20) * 100%;
+$data-section-width-560: 560 / (217 + 560 + 20) * 100%;
+$data-cell-height: 300px;
+$data-cell-background: #fff;
+$data-cell-border-radius: 2px;
+$data-cell-margin: 20px;
+$data-cell-text-margin: 38px;
+$data-cell-text-indent: 64 * 2 / 442 * 100%;
+$data-title-margin: 22px 0 0 41px;
+$data-indicator-margin: 22px 41px 0 0;
+.width-442 {
+  width: $data-section-width-442;
+}
+.width-595 {
+  width: $data-section-width-595;
+}
+.width-217 {
+  width: $data-section-width-217;
+}
+.width-560 {
+  width: $data-section-width-560;
+}
+// 首页-课程表
+$schedule-height: 200px;
+$schedule-margin: 20px;
+$schedule-right: 25px;
+$schedule-padding: 20px 30px 0 40px;
+$schedule-background: #fff;
+$schedule-border-radius: 2px;
+$schedule-fontsize: 14px;
+$schedule-lineheight: 30px;
+$schedule-color: rgba(54, 72, 97, 0.9);
+$schedule-bot-color: #9e9ebc;
+$schedule-ico-size: 30px;
+$schedule-ico-margin: 5px;
+$schedule-transition-duration: .3s;
+$schedule-transition-timing: linear;
+// 首页-代办事项
+$home-done-border-color: #cdcdde;
+$home-done-lineheight: 24px;
+$home-done-padding: 10px;
+$home-done-margin: 20px;
+$home-done-tip-background: rgba(14, 32, 58, 0.85);
+$home-done-tip-color: #ffffff;
+$home-done-tip-border-radius: 4px;
+$home-done-tip-width: 120px;
+$home-done-tip-height: 60px;
+$home-done-tip-fontsize: 20px;
+$home-done-tip-box-shadow: 0 1px 4px 0 rgba(13, 32, 57, 0.5);
+$home-done-col-background: #efeff4;
+$home-done-col-border-radius: 2px;
+$home-done-col-header-height: 43px;
+$home-done-col-header-fontsize: 18px;
+$home-done-col-header-color: #0d2039;
+$home-done-col-header-color2: #4993fa;
+$home-done-col-header-gap: 20px;
+$home-done-item-height: 170px;
+$home-done-item-title-fontsize: 14px;
+$home-done-item-title-fontweight: 500;
+$home-done-item-content-fontsize: 14px;
+$home-done-item-content-color: rgba(54, 72, 97, 0.9);
+$home-done-item-ico-size: 30px;
+$home-done-item-footer-time-fontsize: 12px;
+$home-done-item-footer-time-color: rgba(54, 72, 97, 0.9);
+$home-done-item-footer-time-fontfamily: Verdana;
+$home-done-item-tool-fontsize: 14px;
+$home-done-item-tool-color: #9e9ebc;
+$home-done-item-tool-active-color: #4993fa;
+// 设置
+$setting-background: #fff;
+$setting-margin: 40px 0 0 38px;
+$setting-item-width: 550px;
+$setting-split-width: 50px;
+$setting-split-margin: 0 20px;
+$setting-split-background: #0d2039;
+$setting-label-width: 100px;
+$setting-label-padding: 10px;
+$setting-label-fontsize: 14px;
+$setting-item-margin: 25px;
+$setting-label-color: rgba(54, 72, 97, 0.9);
+$setting-button-width: 250px;
+$setting-button-margin: 50px;
+$setting-tip-color: #9e9ebc;
+$setting-tip-fontsize: 10px;
+$setting-btns-margin: 60px;

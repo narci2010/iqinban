@@ -2,7 +2,6 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-// var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -10,8 +9,11 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    webpack: 'webpack-hot-middleware/client',
-    app: './src/main.js'
+    app: ['babel-polyfill', './src/main.js']
+    // webpack: 'webpack-hot-middleware/client'
+  },
+  externals: {
+    echarts: 'echarts'
   },
   output: {
     path: config.build.assetsRoot,
@@ -57,30 +59,21 @@ module.exports = {
         }
       },
       {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+        }
+      },
+      {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.(mp3|mov|mp4)(\?.*)?$/,
-        loader: 'file-loader'
       }
     ]
-  },
-  plugins: [
-    // 添加DllReferencePlugin插件
-    /*new webpack.DllReferencePlugin({
-      context: path.resolve(__dirname, '..'),
-      manifest: require('./common-manifest.json')
-    }),
-    new PrerenderSpaPlugin(
-      // Absolute path to compiled SPA
-      path.join(__dirname, '../dist'),
-      // List of routes to prerender
-      [ '/' ]
-    )*/
-  ]
+  }
 }

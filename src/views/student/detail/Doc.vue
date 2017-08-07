@@ -1,91 +1,110 @@
 <!-- 文档 -->
 <template>
-  <div class="i-student-doc">
-    <div class="i-student-doc-inner">
-      <div class="i-student-doc-section">
-        <el-dropdown trigger="click" menu-align="start">
-          <span class="el-dropdown-link">
-            <i class="i-icon-sort el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item>双皮奶</el-dropdown-item>
-            <el-dropdown-item>蚵仔煎</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
-      <div class="i-student-doc-section">
-        <el-checkbox-group v-model="checkList" class="i-student-doc-checkbox-group">
-          <el-checkbox label="全部"></el-checkbox>
-          <el-checkbox label="作业"></el-checkbox>
-          <el-checkbox label="试卷"></el-checkbox>
-        </el-checkbox-group>
-      </div>
+  <div class="i-content is-menubar is-tabbar">
+    <div class="i-doc__header">
+      <i class="i-filter"></i>
+      <span style="float: left;margin-top: -3px;margin-left: 25px">
+        <i-checkbox style="width: auto;" :items="items"></i-checkbox>
+      </span>
     </div>
-    <div class="i-student-doc-inner">
-      <el-table
-        :data="tableData"
-        :border="false"
-        stripe
-        style="width: 100%">
+    <div class="i-table__panel" style="margin-top: 10px">
+      <el-table class="i-table" :data="tableData" stripe>
         <el-table-column
-          prop="name"
-          label="文档名">
+          label=""
+          prop=""
+          width="20">
         </el-table-column>
         <el-table-column
-          prop="type"
-          label="类型">
-        </el-table-column>
+          label="文档名"
+          prop="col1"
+        ></el-table-column>
         <el-table-column
-          prop="level"
+          label="课程等级"
+          prop="col2"
           sortable
-          width="150"
-          label="课程等级">
-        </el-table-column>
+        ></el-table-column>
         <el-table-column
-          prop="classroom"
-          label="班级">
-        </el-table-column>
+          label="班级"
+          prop="col3"
+        ></el-table-column>
         <el-table-column
-          prop="teacher"
-          label="教师">
-        </el-table-column>
+          label="教师"
+          prop="col4"
+        ></el-table-column>
         <el-table-column
-          prop="status"
-          label="状态">
-        </el-table-column>
+          label="状态"
+          prop="col5"
+        ></el-table-column>
         <el-table-column
-          prop="score"
+          label="分数"
+          prop="col5"
           sortable
-          label="分数">
-        </el-table-column>
+        ></el-table-column>
         <el-table-column
-          prop="starttime"
+          label="提交时间"
+          prop="col7"
           sortable
-          width="150"
-          label="提交时间">
-        </el-table-column>
+        ></el-table-column>
         <el-table-column
-          prop="endtime"
-          width="150"
-          label="批改时间">
+          label="批改时间"
+          prop="col7"
+        ></el-table-column>
+        <el-table-column label="">
+          <template scope="scope">
+            <el-popover
+              placement="bottom"
+              title=""
+              width="66"
+              :offset="-15"
+              trigger="click"
+              popper-class="i-popover__small">
+              <div class="i-popover__content">
+                <a class="i-popover__item" href="javascript:">导出</a>
+                <a class="i-popover__item" href="javascript:">删除</a>
+              </div>
+              <a href="javascript:" slot="reference" class="i-table__more"><i class="iconfont icon-morecopy_px"></i></a>
+            </el-popover>
+          </template>
         </el-table-column>
       </el-table>
     </div>
   </div>
 </template>
+
 <script>
-  import doc from '../../../mock/student/doc'
+  import ICheckbox from '@/components/checkbox'
+  import { createData } from '@/mock/table'
 
   export default {
+    name: 'StudentDetailDoc',
+    components: {
+      ICheckbox
+    },
     data () {
       return {
-        tableData: doc.tableData,
-        checkList: []
+        items: ['试卷', '作业'],
+        tableData: []
       }
+    },
+    mounted () {
+      createData(30).then(data => {
+        this.tableData = data
+      })
     }
   }
 </script>
 
+<style lang="scss" scoped>
+  .i-doc {
+    &__header {
+      height: 50px;
+      border-radius: 2px;
+      background: #fff;
+      i {
+        float: left;
+        padding: 18px 13px;
+        margin-left: 17px;
+      }
+    }
+  }
+</style>

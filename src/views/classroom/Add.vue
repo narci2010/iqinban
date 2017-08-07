@@ -1,17 +1,18 @@
-<!-- 创建班级 -->
+<!-- 新增学生 -->
 <template>
-  <div class="i-classroom-add">
-    <div class="i-secondary-menu">
-      <i-top-menu title="创建班级"></i-top-menu>
-    </div>
-    <div class="i-classroom-add-pane">
-      <div class="i-classroom-inner">
-        <el-form class="i-form" :label-position="labelPosition" label-width="80px" style="width: 550px;" :model="information">
-          <el-form-item label="班级名称" class="i-form-item">
-            <el-input v-model="information.name"></el-input>
+  <div class="i-container" :style="style">
+    <i-menubar title="创建班级" :show-search="false" :show-filter="false"></i-menubar>
+    <div class="i-content is-menubar">
+      <div class="form__pane">
+        <el-form class="i-form" style="width:550px;" label-position="top" label-width="" :model="information">
+          <el-form-item label="班级名称" required>
+            <el-input style="width:550px;" v-model="information.name"></el-input>
           </el-form-item>
-          <el-form-item label="班级类型" class="i-form-item">
-            <el-select v-model="information.value" placeholder="" style="width: 550px">
+          <el-form-item label="班级ID" required>
+            <el-input style="width:550px;" v-model="information.name"></el-input>
+          </el-form-item>
+          <el-form-item label="班级类型" required>
+            <el-select style="width: 550px" v-model="option" placeholder="">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -20,241 +21,405 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="课程等级" class="i-form-item">
-          <span class="i-form-tip i-form-left">
-            <i class="el-icon-warning"></i>
-          </span>
-            <el-popover
-              placement="right"
-              popper-class="i-popover"
-              width="290"
-              :offset="30"
-              trigger="click">
-              <div class="i-t-d-popover" style="padding: 20px 5px 0 5px">
-                <el-form class="i-form" label-position="top" label-width="80px" :model="information">
-                  <el-form-item label="等级名称" class="i-form-item">
-                    <el-input v-model="information.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="内容" class="i-form-item">
-                    <el-checkbox-group v-model="checkList">
-                      <el-checkbox v-for="i in 9" :key="i" :label="'等级' + i">等级{{ i }}</el-checkbox>
-                    </el-checkbox-group>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="primary" class="i-button i-cancel" style="width: 100%;">完成</el-button>
-                  </el-form-item>
-                </el-form>
-              </div>
-              <span class="i-form-tip i-form-right" slot="reference">
-              <a href="javascript:;" class="i-form-link">自定义课程等级</a>
-            </span>
-            </el-popover>
-            <el-select v-model="information.value" placeholder="" style="width: 550px">
+          <el-form-item label="课程等级" required>
+            <el-select style="width: 550px" v-model="option" placeholder="">
               <el-option
-                v-for="item in options1"
+                v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="任课教师" class="i-form-item">
-            <el-input v-model="information.name"></el-input>
+          <el-form-item label="任课教师" required>
+            <el-input style="width:550px;" v-model="information.name"></el-input>
           </el-form-item>
-          <el-form-item label="绑定教材" class="i-form-item">
-          <span class="i-form-tip i-form-left">
-            <i class="el-icon-warning"></i>
-          </span>
-            <el-input v-model="information.name" placeholder="教材名1(默认)"></el-input>
-            <el-button>
-              <i class="el-icon-plus"></i> 新增教材
-            </el-button>
+          <el-form-item label="绑定教材">
+            <el-input style="width:550px;margin-bottom: 15px;" v-model="information.name"></el-input>
+            <el-button style="width: 550px;height:40px;" @click="visible = true"><i class="iconfont icon-plus"></i>新增教材</el-button>
           </el-form-item>
-          <el-form-item label="学生" class="i-form-item">
-          <span class="i-form-tip i-form-right">
-            <i class="el-icon-warning"></i>
-          </span>
-            <span class="i-form-tip i-form-right" style="margin-right: 25px">
-            <a href="javascript:;" class="i-form-link">自动导入</a>
-          </span>
-            <div class="i-r-button-group">
-              <div class="i-r-button" v-for="i in 6">
-                <img src="../../assets/img/3e44582895189ec04d7ab61670341baf.jpg"/>
+          <el-form-item label="学生">
+            <div class="i-form__form">
+              <div class="i-form__form-item" v-for="i in 6" :key="i">
+                <img :src="src" alt="ico">
+                <span>某某某</span>
               </div>
-              <a class="i-r-button i-r-button-add" href="javascript:;"></a>
+              <div class="i-form__form-add">
+                <i class="iconfont icon-plus"></i>
+                <span>新增学生</span>
+              </div>
             </div>
           </el-form-item>
-          <el-form-item label="校区" class="i-form-item">
-            <el-input v-model="information.name"></el-input>
+          <el-form-item label="备注">
+            <el-input type="textarea" :row="2" style="width:550px;" v-model="information.name"></el-input>
           </el-form-item>
-          <el-form-item label="备注" class="i-form-item">
-            <el-input
-              style="width:550px;"
-              type="textarea"
-              :autosize="{ minRows: 6, maxRows: 6}"
-              placeholder=""
-              v-model="information.name">
-            </el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-row :gutter="50">
-              <el-col :span="12">
-                <el-button type="primary" class="i-button i-confirm" style="width: 250px;">确认</el-button>
-              </el-col>
-              <el-col :span="12">
-                <el-button type="primary" class="i-button i-cancel" style="width: 250px;">取消</el-button>
-              </el-col>
-            </el-row>
-          </el-form-item>
+          <div class="i-form__btns" style="margin-top: 55px">
+            <el-button class="i-button__done" style="width: 250px;height: 40px;">保存</el-button>
+            <el-button class="i-button__cancel" style="width: 250px;height: 40px;">取消</el-button>
+          </div>
         </el-form>
       </div>
     </div>
+    <i-layer width="1095px" :height="height" offset-top="10%" title="绑定教材" :cls="cls" :show-done="showDone"
+             @on-done="onDone" @on-cancel="onCancel" @on-hide="onHide" :visible="visible">
+      <div class="i-search-input__large form__pane-search" id="pane_search">
+        <i class="el-icon-search"></i>
+        <input type="text" title="" placeholder="" v-model="keyword" @input="change">
+      </div>
+      <a href="javascript:" v-show="showLink" class="form__pane-link" @click="openLayer">显示“{{ keyword }}”的全部教材</a>
+      <div class="layer-pane" v-if="show">
+        <div class="layer-pane__title">搜索结果</div>
+        <div class="layer-pane__body">
+          <div class="layer-pane__left">
+            <div class="layer-pane__item" v-for="i in 6" :key="i" :class="{ 'is-active': i === 1 }">
+              <div class="i-list__item">
+                <img alt="banner" :src="banner">
+                <h1>某某某某某某某某教材</h1>
+                <p>某某等级</p>
+                <p>某某类型</p>
+                <div>10个课件</div>
+                <span>最后修改：2017-03-10</span>
+              </div>
+            </div>
+          </div>
+          <div class="layer-pane__right">
+            <div class="layer-pane__preview-title">预览</div>
+            <div class="layer-pane__preview-item" v-for="i in 6" :key="i">
+              <el-popover
+                placement="bottom"
+                title=""
+                width="86"
+                :offset="-20"
+                trigger="click"
+                popper-class="i-popover">
+                <div class="i-popover__content">
+                  <a class="i-popover__item" href="javascript:">删除</a>
+                </div>
+                <a href="javascript:" slot="reference" class="layer-pane__preview-more"><i class="iconfont icon-morecopy_px"></i></a>
+              </el-popover>
+              <p>某某某某某某某某课件</p>
+              <span>最后修改：2017-03-16</span>
+              <img alt="ico" :src="banner">
+              <em>预览课件</em>
+              <div>共3个知识点 5首练习曲</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </i-layer>
   </div>
 </template>
+
 <script>
-  import ITopMenu from '../../components/topmenu'
-  import add from '../../mock/classroom/add'
+  import IMenubar from '@/components/menubar'
+  import ILayer from '@/components/layer'
+  import src from '@/assets/img/ico.jpg'
+  import _ from 'lodash'
+  import { domMixins } from '@/mixins/dom'
+  import banner from '@/assets/img/banner.png'
 
   export default {
+    name: 'ClassroomAdd',
     components: {
-      ITopMenu
+      IMenubar,
+      ILayer
+    },
+    mixins: [domMixins],
+    computed: {
+      style () {
+        let color = '#f5f5f7'
+        document.body.style.background = `${color}`
+        return ({ background: `${color}` })
+      }
+    },
+    methods: {
+      change: _.debounce(function () {
+        if ([...this.keyword.trim()].length !== 0) {
+          this.showLink = true
+        } else {
+          this.showLink = false
+        }
+      }, 1000),
+      onCancel () {
+        this.visible = false
+      },
+      onDone () {
+        this.visible = false
+      },
+      onHide () {
+        let $search = document.querySelector('#pane_search')
+        this.cls = 'classroom-layer'
+        this.showDone = false
+        this.height = '560px'
+        this.show = false
+        this.showLink = true
+        this.removeClass($search, 'form__pane-search-open')
+      },
+      openLayer () {
+        let $search = document.querySelector('#pane_search')
+        this.showDone = true
+        this.height = '930px'
+        this.show = true
+        this.showLink = false
+        this.addClass($search, 'form__pane-search-open')
+        this.cls = 'classroom-layer__open'
+      }
     },
     data () {
       return {
-        labelPosition: 'top',
         information: {
-          name: '',
-          value: 1
+          name: ''
         },
-        checkList: [],
-        options: add.createOptions('类型'),
-        options1: add.createOptions('等级')
+        src: src,
+        banner: banner,
+        options: [
+          {
+            value: '选项1',
+            label: '黄金糕'
+          },
+          {
+            value: '选项2',
+            label: '双皮奶'
+          },
+          {
+            value: '选项3',
+            label: '蚵仔煎'
+          }
+        ],
+        option: '',
+        keyword: '',
+        cls: 'classroom-layer',
+        height: '560px',
+        showDone: false,
+        showLink: false,
+        show: false, // 是否显示搜索内容
+        visible: false // 是否显示绑定教材Layer
       }
     }
   }
 </script>
-<style lang="less">
-  @import "../../assets/v2/base";
 
-  .i-popover {
-    .el-checkbox {
-      &+.el-checkbox {
-        margin-left: 0;
+<style lang="scss">
+  .form__pane {
+    .i-form {
+      .el-textarea__inner {
+        height: 145px;
+        border-radius: 2px;
       }
-      margin-right: 44px;
-      &:nth-child(3n) {
-        margin-right: 0;
+      &__form {
+        border-radius: 2px;
+        border: solid 1px #cdcddf;
+        padding-bottom: 26px;
+        &:before, &:after {
+          content: '';
+          clear: both;
+          display: table;
+        }
+        &-item, &-add {
+          float: left;
+          position: relative;
+          width: 50px;
+          margin: 26px 0 0 30px;
+          > img , > i {
+            width: 50px;
+            height: 50px;
+            display: block;
+            border-radius: 100%;
+            border: 1px solid #cdcddf;
+            box-sizing: border-box;
+          }
+          > i {
+            font-size: 28px;
+            text-align: center;
+            line-height: 50px;
+            color: #cdcddf;
+          }
+          > span {
+            text-align: center;
+            display: block;
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 10px;
+            color: rgba(54, 72, 97, 0.9);
+          }
+        }
+      }
+    }
+    &-search {
+      margin:0 auto;
+      width:696px;
+      transition: all 0.65s ease-in-out;
+      &-open {
+        margin-right: 6px;
+        width: 240px;
+        height: 32px;
+        float: right;
+        > i {
+          font-size: 16px;
+          line-height: 30px;
+          padding: 0 8px;
+        }
+        > input {
+          height: 30px;
+          line-height: 30px;
+          text-indent: 32px;
+          font-size: 16px;
+        }
+      }
+    }
+    &-link {
+      font-size: 18px;
+      font-weight: 300;
+      color: #4993fa;
+      margin: 10px 0 0 196px;
+      display: block;
+    }
+  }
+  .classroom-layer {
+    .i-layer__title {
+      margin-top: 110px;
+      margin-bottom: 90px;
+    }
+    .i-layer__footer {
+      margin-bottom: 81px;
+      margin-top: 121px;
+    }
+    &__open {
+      .i-layer__title {
+        margin-top: 40px;
+        margin-bottom: 37px;
       }
     }
   }
-  .i-classroom-add {
-    .i-classroom-add-pane {
-      background: #fff;
-      border-radius: 2px;
-      max-width: @--main-width;
-      margin: 20px auto 60px;
+  .layer-pane {
+    height: 730px;
+    margin-left: 48px;
+    position: relative;
+    &__title {
+      float: left;
+      font-size: 14px;
+      line-height: 30px;
+      font-weight: 300;
+      color: rgba(54, 72, 97, 0.9);
+      margin-left: 8px;
     }
-    .i-classroom-inner {
-      padding: 33px 40px;
-      .i-form-item {
-        position: relative;
-        .i-form-tip {
+    &__body {
+      &:before, &:after {
+        display: table;
+        content: '';
+        clear: both;
+      }
+      height: 690px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    &__left {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 712px;
+    }
+    &__right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 266px;
+    }
+    &__item {
+      float: left;
+      position: relative;
+      width: 332px;
+      height: 354px;
+      background: #fff;
+      margin-right: 30px;
+      margin-bottom: 30px;
+      z-index: 0;
+      &.is-active {
+        &:after {
+          z-index: 11;
           position: absolute;
-          top: -35px;
-          cursor: pointer;
-          color: #6BA2FB;
-          > a {
-            color: #6ba2fb;
-          }
-          &:hover {
-            color: darken(#6BA2FB, 10%);
-            > a {
-              color: darken(#6BA2FB, 10%);
-            }
-          }
-          &.i-form-left {
-            left: 0;
-            margin-left: 65px;
-          }
-          &.i-form-right {
-            right: 0;
-          }
+          content: '\e641';
+          font-family: 'iconfont';
+          bottom: 11px;
+          right: 11px;
+          font-size: 21px;
+          color: #4993fa;
         }
-        .el-textarea__inner {
-          border-radius: 2px;
-        }
-        .el-button {
-          margin-top: 15px;
-          width: 550px;
-          color: #616F82;
-          &:focus, &:hover {
-            color: #20a0ff;
-            border-color: #20a0ff;
-          }
-        }
-        .i-r-button-group {
-          .clear;
-          .clearfix;
-          padding-bottom: 29px;
-          border: 1px solid #BFCBDA;
+      }
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+    &__preview {
+      &-title {
+        font-size: 14px;
+        font-weight: 300;
+        color: rgba(54, 72, 97, 0.9);
+        line-height: 20px;
+        margin-left: 5px;
+        margin-top: 15px;
+      }
+      &-item {
+        background: #fff;
+        margin-top: 15px;
+        position: relative;
+        padding: 7px 7px 11px 6px;
+        > img {
+          display: block;
           width: 100%;
-          border-radius: 2px;
-          .i-r-button {
-            float: left;
-            position: relative;
-            width: 58px;
-            height: 58px;
-            border-radius: 100%;
-            overflow: hidden;
-            margin: 29px 0 0 29px;
-            &.i-r-button-add {
-              border: 1px solid #BFCBDA;
-              .box-sizing;
-              position: relative;
-              &:before {
-                position: absolute;
-                content: '';
-                background: #bfcbda;
-                width: 32px;
-                height: 2px;
-                top: 28px;
-                left: 13px;
-                transform: rotateX(45deg);
-                -ms-transform: rotateX(45deg);
-              }
-              &:after {
-                position: absolute;
-                content: '';
-                background: #bfcbda;
-                height: 32px;
-                width: 2px;
-                left: 28px;
-                top: 13px;
-                transform: rotateY(45deg);
-                -ms-transform: rotateY(45deg);
-              }
-              &:hover, &:focus {
-                color: #20a0ff;
-                border-color: #20a0ff;
-                &:before {
-                  background: #20a0ff;
-                }
-                &:after {
-                  background: #20a0ff;
-                }
-              }
-            }
-            > img {
-              display: block;
-              width: 100%;
-              height: 100%;
-              transition: all .3s;
-              &:hover {
-                transform: scale(1.2);
-              }
-            }
-          }
         }
+        > p {
+          font-size: 14px;
+          font-weight: 500;
+          color: #0d2039;
+          line-height: 20px;
+        }
+        > span {
+          font-size: 14px;
+          color: rgba(54, 72, 97, 0.9);
+          display: block;
+          line-height: 20px;
+          margin: 5px 0;
+        }
+        > div {
+          height: 25px;
+          opacity: 0.72;
+          background-color: #4a4a4a;
+          position: absolute;
+          bottom: 11px;
+          left: 6px;
+          right: 7px;
+          text-align: center;
+          font-size: 14px;
+          color: #ffffff;
+          line-height: 25px;
+        }
+        > em {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          text-align: center;
+          margin: 0 auto;
+          font-style: normal;
+          font-size: 16px;
+          color: #ffffff;
+          line-height: 22px;
+        }
+      }
+      &-more {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: rgba(54, 72, 97, 0.9);
+        padding: 10px 5px;
       }
     }
   }

@@ -1,94 +1,95 @@
+<!-- 排序器 -->
 <template>
-  <div class="i-sortable" @click="changeStatus" :id="id">
-    <div class="i-sortable-title">{{ title }}</div>
-    <div class="i-sortable-arrow">
-      <i class="i-sortable-caret ascending"></i>
-      <i class="i-sortable-caret descending"></i>
+  <el-popover
+    placement="bottom"
+    title=""
+    width="112"
+    :offset="30"
+    trigger="click"
+    v-if="isPopover"
+    popper-class="i-popover i-popover__small">
+    <div class="i-popover__content">
+      <slot></slot>
     </div>
+    <div class="i-sortable" slot="reference" :class="{ 'is-ascending': state === 'ascend', 'is-descending': state === 'descend' }">
+      {{ label }}
+    </div>
+  </el-popover>
+  <div class="i-sortable" @click="change" v-else :class="{ 'is-ascending': state === 'ascend', 'is-descending': state === 'descend' }">
+    {{ label }}
   </div>
 </template>
-<script>
-  import { toolMixins } from '../../mixins/tools'
 
+<script>
   export default {
-    mixins: [toolMixins],
+    name: 'Sortable',
     props: {
-      title: String
+      label: String,
+      isPopover: {
+        type: Boolean,
+        default: true
+      },
+      status: {
+        type: String,
+        default: 'normal'
+      }
     },
     methods: {
-      changeStatus () {
-        this.status += 1
-        if (this.status === 3) this.status = 0
-        let [$asc, $desc] = [
-          document.querySelector('#' + this.id + ' .ascending'),
-          document.querySelector('#' + this.id + ' .descending')
-        ]
-        // 触发器
-        this.$emit('on-change', this.status)
-        switch (this.status) {
-          case 0:
-            this.removeClass($desc, 'active')
-            break
-          case 1:
-            this.addClass($asc, 'active')
-            break
-          case 2:
-            this.removeClass($asc, 'active')
-            this.addClass($desc, 'active')
-            break
-          default:
-            break
+      change () {
+        if (this.state === 'normal') {
+          this.state = 'ascend'
+        } else if (this.state === 'ascend') {
+          this.state = 'descend'
+        } else {
+          this.state = 'normal'
         }
+        this.$emit('on-change', this.state)
+      }
+    },
+    watch: {
+      status (val) {
+        this.state = this.allowlist.find(x => x === val)
+        if (this.state === undefined) this.state = 'normal'
       }
     },
     data () {
       return {
-        status: 0,
-        id: 'i_sortable_' + this.uuid()
+        allowlist: ['ascend', 'descend', 'normal'],
+        state: 'normal'
       }
+    },
+    mounted () {
+      this.state = this.allowlist.find(x => x === this.status)
+      if (this.state === undefined) this.state = 'normal'
     }
   }
 </script>
-<style lang="less">
-  @import "../../assets/v2/base";
+
+<style lang="scss" scoped>
   .i-sortable {
-    float: left;
     position: relative;
-    line-height: 20px;
-    cursor: pointer;
-    margin-left: 20px;
-    .i-sortable-title {
-      float: left;
-      position: relative;
+    &:before, &:after {
+      position: absolute;
+      content: '';
+      right: -15px;
+      border-top: none;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid #97a8be;
     }
-    .i-sortable-arrow {
-      float: left;
-      position: relative;
-      margin-left: 5px;
-      margin-top: 4px;
-      width: 20px;
-      i {
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border: 0;
-        position: absolute;
-        z-index: 2;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        &.ascending {
-          border-bottom: 5px solid #97a8be;
-          &.active {
-            border-bottom-color: rgb(72, 87, 106);
-          }
-        }
-        &.descending {
-          border-top: 5px solid #97a8be;
-          top: 8px;
-          &.active {
-            border-top-color: rgb(72, 87, 106);
-          }
-        }
+    &:after {
+      border-top: 4px solid #97a8be;
+      border-bottom: none;
+      top: 10px;
+    }
+    &.is-ascending {
+      &:before {
+        border-bottom-color: #0e213a;
+      }
+    }
+    &.is-descending {
+      &:after {
+        border-top-color: #0e213a;
       }
     }
   }

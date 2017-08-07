@@ -1,12 +1,12 @@
 # iqinban
 
-> i琴伴web控制台
+> iqinban web控制台
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-cnpm install
+npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
@@ -26,24 +26,5 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-### package
-```
-1.axios
-2.echarts
-3.mockjs
-4.vue
-5.vue-router
-6.vuex
-7.babel-polyfill
-8.element-ui
-9.flv.js
-```
-
-### acknowledgments
-1.ElemeFE <br>
-2.Evan You <br>
-3.Bilibili <br>
-4.vuejs
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
