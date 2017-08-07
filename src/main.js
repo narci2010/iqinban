@@ -32,10 +32,12 @@ import {
   Radio,
   Rate,
   Tag,
-  Tooltip
+  Tooltip,
+  Pagination
 } from 'element-ui'
 
 Vue.use(Tooltip)
+Vue.use(Pagination)
 Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Badge)

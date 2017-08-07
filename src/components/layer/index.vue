@@ -167,12 +167,11 @@
   .layer-fade-in-enter-active {
     transition: all .5s ease;
   }
-  .layer-fade-in--leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  .layer-fade-in-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .layer-fade-in-enter, .layer-fade-in-leave-to {
-    transform: translateY(-100px);
+    transform: translate3D(0, -100px, 0);
     opacity: 0;
-    z-index: -1;
   }
 </style>

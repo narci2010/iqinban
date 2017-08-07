@@ -36,6 +36,8 @@ import ClassroomDetailInfo from '@/views/classroom/detail/Info' // 基本信息�
 import ClassroomDetailRecord from '@/views/classroom/detail/Record' // 教学记录
 import ClassroomDetailDoc from '@/views/classroom/detail/Doc' // 文档
 import ClassroomAdd from '@/views/classroom/Add' // 新增
+// 课程
+import Course from '@/views/course/Index' // 默认
 
 Vue.use(Router)
 
@@ -185,8 +187,12 @@ const route = new Router({
       path: '/classroom/add',
       name: 'ClassroomAdd',
       component: ClassroomAdd
+    },
+    {
+      path: '/course',
+      name: 'Course',
+      component: Course
     }
-
   ]
 })
 

@@ -245,50 +245,12 @@
         }
       }
     }
-    &-search {
-      margin:0 auto;
-      width:696px;
-      transition: all 0.65s ease-in-out;
-      &-open {
-        margin-right: 6px;
-        width: 240px;
-        height: 32px;
-        float: right;
-        > i {
-          font-size: 16px;
-          line-height: 30px;
-          padding: 0 8px;
-        }
-        > input {
-          height: 30px;
-          line-height: 30px;
-          text-indent: 32px;
-          font-size: 16px;
-        }
-      }
-    }
     &-link {
       font-size: 18px;
       font-weight: 300;
       color: #4993fa;
       margin: 10px 0 0 196px;
       display: block;
-    }
-  }
-  .classroom-layer {
-    .i-layer__title {
-      margin-top: 110px;
-      margin-bottom: 90px;
-    }
-    .i-layer__footer {
-      margin-bottom: 81px;
-      margin-top: 121px;
-    }
-    &__open {
-      .i-layer__title {
-        margin-top: 40px;
-        margin-bottom: 37px;
-      }
     }
   }
   .layer-pane {
